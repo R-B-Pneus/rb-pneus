@@ -104,7 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
                         <source src="/hero-video.mp4" type="video/mp4" />
                     </video>` : ''}
+                    ${window.innerWidth > 768 ? `
                     <div class="hero-vignette" style="position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
+                    ` : ''}
                     
                     <div class="hero-content-layer" style="position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; justify-content: center; pointer-events: none;">
                         <div class="container" style="width: 100%;">
