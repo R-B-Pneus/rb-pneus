@@ -24,13 +24,9 @@ const initReveals = () => {
 // 2. Motor de Scrub de Vídeo (Nativo)
 const initManualVideoScrub = () => {
     const video = document.getElementById('heroVideo');
-    const section = document.querySelector('.hero');
-    const content = document.querySelector('.hero-content-layer');
-    
-    // Check if it's mobile to avoid heavy video scrub logic
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = window.matchMedia("(max-width: 1024px)").matches;
     if (isMobile) {
-        if (video) video.remove(); // Safely remove video on mobile
+        if (video) video.remove();
         return;
     }
     
@@ -104,11 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <main>
             <!-- SEÇÃO 1: HERO -->
-            <section class="hero" style="position: relative; height: 800vh; background: #000;">
+            <section class="hero" style="position: relative; height: ${window.matchMedia("(min-width: 1025px)").matches ? '800vh' : '100vh'}; background: #000;">
                 <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden;">
+                    ${window.matchMedia("(min-width: 1025px)").matches ? `
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
                         <source src="/hero-video.mp4" type="video/mp4" />
-                    </video>
+                    </video>` : ''}
                     <div class="hero-vignette" style="position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
                     
                     <div class="hero-content-layer" style="position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; justify-content: center; pointer-events: none;">
