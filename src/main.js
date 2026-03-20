@@ -27,6 +27,13 @@ const initManualVideoScrub = () => {
     const section = document.querySelector('.hero');
     const content = document.querySelector('.hero-content-layer');
     
+    // Check if it's mobile to avoid heavy video scrub logic
+    const isMobile = window.innerWidth <= 768;
+    if (isMobile) {
+        if (video) video.remove(); // Safely remove video on mobile
+        return;
+    }
+    
     if (!video || !section) return;
 
     function clamp(v, min, max) {
@@ -69,7 +76,7 @@ const initManualVideoScrub = () => {
 // 3. Estrutura da Página
 document.addEventListener('DOMContentLoaded', () => {
     const app = document.querySelector('#app');
-    
+
     app.innerHTML = `
         <div class="noise-overlay"></div>
         <div class="fixed-reference-grid" style="position: fixed; inset: 0; pointer-events: none; z-index: 50; background-image: radial-gradient(white 0.5px, transparent 0.5px); background-size: 80px 80px; opacity: 0.05;"></div>
@@ -80,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="#" style="text-decoration: none; display: flex; align-items: center; gap: 1rem;">
                         <img src="/logo-rb.svg" style="height: 38px; width: auto; display: block;">
                     </a>
-                    <div style="display: flex; align-items: center; gap: 0.4rem;">
+                    <div class="distribuidor-text" style="display: flex; align-items: center; gap: 0.4rem;">
                         <span class="font-mono" style="font-size: 7px; color: white; opacity: 0.2; letter-spacing: 0.1em; transform: translateY(1px);">DISTRIBUIDOR OFICIAL</span>
                     </div>
                 </div>
@@ -297,13 +304,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     <div class="accordion-container reveal-up" style="max-width: 1000px; width: 100%;">
                         ${[
-                            {q: 'ONDE SÃO FABRICADOS OS PNEUS BOTO?', a: 'Os pneus Boto são fabricados na China, onde estão localizadas a sede e as unidades de produção da marca.'},
-                            {q: 'OS PNEUS BOTO SÃO CONFIÁVEIS?', a: 'Sim. Os pneus Boto são reconhecidos pela durabilidade e desempenho, produzidos com tecnologia avançada e materiais de alta qualidade.'},
-                            {q: 'A BOTO POSSUI PNEUS PARA NEVE?', a: 'Sim. A marca oferece modelos específicos para inverno, desenvolvidos para garantir aderência e segurança em condições de neve e gelo.'},
-                            {q: 'BORRACHA INDUSTRIAL É RESISTENTE?', a: 'Sim. As folhas de borracha industrial Boto são projetadas para suportar exposição a diversos produtos químicos, mantendo integridade em aplicações industriais.'},
-                            {q: 'CORREIAS TRANSPORTADORAS BOTO PRECISAM DE MANUTENÇÃO?', a: 'Sim. Recomenda-se manutenção periódica (limpeza, ajuste de tensão) para garantir o máximo desempenho e vida útil.'},
-                            {q: 'ESSE PNEU SUPORTA RECAPAGEM?', a: 'Sim. Os pneus Boto são projetados com carcaça reforçada de alta resistência, permitindo até três processos de recapagem. A estrutura do pneu mantém a integridade da carcaça após o uso prolongado, garantindo aderência, estabilidade e segurança. Essa característica faz dos pneus Boto uma opção econômica e sustentável, prolongando sua vida útil e reduzindo o custo por quilômetro.'}
-                        ].map((item, index) => `
+            { q: 'ONDE SÃO FABRICADOS OS PNEUS BOTO?', a: 'Os pneus Boto são fabricados na China, onde estão localizadas a sede e as unidades de produção da marca.' },
+            { q: 'OS PNEUS BOTO SÃO CONFIÁVEIS?', a: 'Sim. Os pneus Boto são reconhecidos pela durabilidade e desempenho, produzidos com tecnologia avançada e materiais de alta qualidade.' },
+            { q: 'A BOTO POSSUI PNEUS PARA NEVE?', a: 'Sim. A marca oferece modelos específicos para inverno, desenvolvidos para garantir aderência e segurança em condições de neve e gelo.' },
+            { q: 'BORRACHA INDUSTRIAL É RESISTENTE?', a: 'Sim. As folhas de borracha industrial Boto são projetadas para suportar exposição a diversos produtos químicos, mantendo integridade em aplicações industriais.' },
+            { q: 'CORREIAS TRANSPORTADORAS BOTO PRECISAM DE MANUTENÇÃO?', a: 'Sim. Recomenda-se manutenção periódica (limpeza, ajuste de tensão) para garantir o máximo desempenho e vida útil.' },
+            { q: 'ESSE PNEU SUPORTA RECAPAGEM?', a: 'Sim. Os pneus Boto são projetados com carcaça reforçada de alta resistência, permitindo até três processos de recapagem. A estrutura do pneu mantém a integridade da carcaça após o uso prolongado, garantindo aderência, estabilidade e segurança. Essa característica faz dos pneus Boto uma opção econômica e sustentável, prolongando sua vida útil e reduzindo o custo por quilômetro.' }
+        ].map((item, index) => `
                             <div class="accordion-item" style="border-bottom-color: rgba(0,0,0,0.1);">
                                 <button class="accordion-header" id="faq-header-${index}" style="color: #000;">
                                     <h4>${item.q}</h4>
@@ -362,10 +369,10 @@ document.addEventListener('DOMContentLoaded', () => {
             header.addEventListener('click', () => {
                 const item = header.parentElement;
                 const isActive = item.classList.contains('active');
-                
+
                 // Fecha outros
                 document.querySelectorAll('.accordion-item').forEach(el => el.classList.remove('active'));
-                
+
                 if (!isActive) {
                     item.classList.add('active');
                 }
@@ -388,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    
+
     // Efeito Flashlight Mouse
     document.addEventListener('mousemove', e => {
         document.querySelectorAll('.flashlight-card').forEach(card => {
