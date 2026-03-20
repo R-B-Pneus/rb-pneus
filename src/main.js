@@ -24,11 +24,10 @@ const initReveals = () => {
 // 2. Motor de Scrub de Vídeo (Nativo)
 const initManualVideoScrub = () => {
     const video = document.getElementById('heroVideo');
-    const isMobile = window.matchMedia("(max-width: 1024px)").matches;
     const section = document.querySelector('.hero');
     const content = document.querySelector('.hero-content-layer');
     
-    if (!video || !section) return;
+    if (!section) return; // Allow running without video for text fade effect
 
     function clamp(v, min, max) {
         return Math.min(Math.max(v, min), max);
@@ -40,7 +39,7 @@ const initManualVideoScrub = () => {
         const scrolled = clamp(-rect.top, 0, scrollable);
         const progress = scrolled / scrollable;
 
-        if (!isNaN(video.duration)) {
+        if (video && !isNaN(video.duration)) {
             video.currentTime = progress * video.duration;
         }
 
@@ -98,15 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <main>
             <!-- SEÇÃO 1: HERO -->
-            <section class="hero" style="position: relative; height: ${window.innerWidth > 768 ? '800vh' : '100vh'}; background: #000;">
+            <section class="hero" style="position: relative; height: 300vh; background: #000;">
                 <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; background: url('/IMG_0876.png') center/cover no-repeat;">
                     ${window.innerWidth > 768 ? `
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
                         <source src="/hero-video.mp4" type="video/mp4" />
                     </video>` : ''}
-                    ${window.innerWidth > 768 ? `
                     <div class="hero-vignette" style="position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
-                    ` : ''}
+
                     
                     <div class="hero-content-layer" style="position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; justify-content: center; pointer-events: none;">
                         <div class="container" style="width: 100%;">
