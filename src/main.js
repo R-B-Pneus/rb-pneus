@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </footer>
         </main>
 
-        <a href="https://wa.me/5588997283150" class="whatsapp-float" target="_blank">
+        <a href="https://wa.me/5519984061207" class="whatsapp-float" target="_blank">
             <img src="/WhatsApp.svg" alt="WhatsApp">
         </a>
     `;
