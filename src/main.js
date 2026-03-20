@@ -52,14 +52,18 @@ const initManualVideoScrub = () => {
         }
     }
 
-    video.addEventListener('loadedmetadata', () => {
+    const initScrubLogic = () => {
         window.addEventListener('scroll', () => {
             requestAnimationFrame(updateVideo);
         });
         updateVideo();
-    });
+    };
 
-    video.load();
+    if (video.readyState >= 1) {
+        initScrubLogic();
+    } else {
+        video.addEventListener('loadedmetadata', initScrubLogic);
+    }
 };
 
 // 3. Estrutura da Página
@@ -96,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <section class="hero" style="position: relative; height: 800vh; background: #000;">
                 <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden;">
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
-                        <source src="/Vídeo.mp4" type="video/mp4" />
+                        <source src="/hero-video.mp4" type="video/mp4" />
                     </video>
                     <div class="hero-vignette" style="position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);"></div>
                     
