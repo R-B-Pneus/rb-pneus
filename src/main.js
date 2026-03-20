@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 3rem; font-weight: 300;">
                                 Estabilidade e segurança otimizadas para o transporte de passageiros. Inclui conjunto de rodas 22mm de aço inoxidável e bicos profissionais montados.
                             </p>
-                            <button class="btn-pill primary" style="width: 100%; margin-top: auto;">SOLICITAR DADOS TÉCNICOS</button>
+                            <a href="#contato" class="btn-pill primary" style="width: 100%; margin-top: auto; text-decoration: none; text-align: center; display: block;">SOLICITAR ORÇAMENTO</a>
                         </div>
                         <div class="flashlight-card reveal-up" style="background: #0A0A0A; border: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column;">
                             <img src="/IMG_0876.png" style="width: 100%; height: 350px; object-fit: contain; margin-bottom: 2rem; filter: saturate(0) contrast(1.1);">
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <p style="font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 3rem; font-weight: 300;">
                                 Carcaça industrial de máxima resistência com 18 lonas para transporte pesado de longa distância. Kit completo com rodas de aço inox 22mm de alta durabilidade.
                             </p>
-                            <button class="btn-pill primary" style="width: 100%; margin-top: auto;">SOLICITAR DADOS TÉCNICOS</button>
+                            <a href="#contato" class="btn-pill primary" style="width: 100%; margin-top: auto; text-decoration: none; text-align: center; display: block;">SOLICITAR ORÇAMENTO</a>
                         </div>
                     </div>
                     <div class="carousel-dots">
