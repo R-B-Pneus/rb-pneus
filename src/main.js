@@ -129,6 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </section>
 
