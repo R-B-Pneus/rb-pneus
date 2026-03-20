@@ -25,10 +25,8 @@ const initReveals = () => {
 const initManualVideoScrub = () => {
     const video = document.getElementById('heroVideo');
     const isMobile = window.matchMedia("(max-width: 1024px)").matches;
-    if (isMobile) {
-        if (video) video.remove();
-        return;
-    }
+    const section = document.querySelector('.hero');
+    const content = document.querySelector('.hero-content-layer');
     
     if (!video || !section) return;
 
@@ -100,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <main>
             <!-- SEÇÃO 1: HERO -->
-            <section class="hero" style="position: relative; height: ${window.matchMedia("(min-width: 1025px)").matches ? '800vh' : '100vh'}; background: #000;">
-                <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden;">
-                    ${window.matchMedia("(min-width: 1025px)").matches ? `
+            <section class="hero" style="position: relative; height: ${window.innerWidth > 768 ? '800vh' : '100vh'}; background: #000;">
+                <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; background: url('/IMG_0876.png') center/cover no-repeat;">
+                    ${window.innerWidth > 768 ? `
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
                         <source src="/hero-video.mp4" type="video/mp4" />
                     </video>` : ''}

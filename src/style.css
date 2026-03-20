@@ -187,7 +187,7 @@ h4,
     }
 
     .hero-content-layer {
-        display: none !important;
+        display: flex !important;
     }
 
     .hero-content-layer h1 {
