@@ -154,7 +154,9 @@ h4,
     }
 
     .hero {
-        height: auto !important;
+        height: 100vh !important;
+        min-height: 100vh !important;
+        overflow: hidden !important;
     }
 
     #navbar .nav-links {
@@ -237,10 +239,10 @@ h4,
     }
 
     .mobile-carousel>* {
-        min-width: 90vw !important;
-        /* Slightly smaller to see a hint of the next one */
-        scroll-snap-align: center;
-        margin-right: 1rem;
+        min-width: 82vw !important;
+        /* Reduzido para ver o próximo */
+        scroll-snap-align: start;
+        margin-right: 1.2rem;
     }
 
     .mobile-carousel>*:last-child {
@@ -280,8 +282,8 @@ h4,
     }
 
     .mobile-carousel>* {
-        min-width: 85vw !important;
-        scroll-snap-align: center;
+        min-width: 82vw !important;
+        scroll-snap-align: start;
         margin-bottom: 0 !important;
     }
 
@@ -330,10 +332,26 @@ h4,
     /* FAQ and Bottom Spacing */
     .faq-section {
         padding: 4rem 0 !important;
+        background: #FFFFFF !important;
     }
 
     .accordion-header {
         padding: 1.5rem 0 !important;
+        color: #000 !important;
+    }
+
+    .accordion-header h4 {
+        font-size: 0.85rem !important;
+    }
+
+    .accordion-content-inner {
+        color: rgba(0,0,0,0.6) !important;
+        font-size: 0.85rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .accordion-item {
+        border-bottom-color: rgba(0,0,0,0.1) !important;
     }
 
     footer {
@@ -367,7 +385,7 @@ h4,
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    color: white;
+    color: inherit;
     text-align: left;
     transition: all 0.3s;
 }

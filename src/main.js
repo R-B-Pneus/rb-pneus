@@ -37,7 +37,7 @@ const initManualVideoScrub = () => {
         const rect = section.getBoundingClientRect();
         const scrollable = section.offsetHeight - window.innerHeight;
         const scrolled = clamp(-rect.top, 0, scrollable);
-        const progress = scrolled / scrollable;
+        const progress = scrollable > 0 ? scrolled / scrollable : 0;
 
         if (video && !isNaN(video.duration)) {
             video.currentTime = progress * video.duration;
@@ -59,10 +59,14 @@ const initManualVideoScrub = () => {
         updateVideo();
     };
 
-    if (video.readyState >= 1) {
-        initScrubLogic();
+    if (video) {
+        if (video.readyState >= 1) {
+            initScrubLogic();
+        } else {
+            video.addEventListener('loadedmetadata', initScrubLogic);
+        }
     } else {
-        video.addEventListener('loadedmetadata', initScrubLogic);
+        initScrubLogic(); // Still run for content fade effects
     }
 };
 
@@ -97,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <main>
             <!-- SEÇÃO 1: HERO -->
-            <section class="hero" style="position: relative; height: 300vh; background: #000;">
+            <section class="hero" style="position: relative; height: ${window.innerWidth > 768 ? '300vh' : '100vh'}; background: #000;">
                 <div class="hero-sticky-stage" style="position: sticky; top: 0; width: 100%; height: 100vh; overflow: hidden; background: url('/IMG_0876.png') center/cover no-repeat;">
                     ${window.innerWidth > 768 ? `
                     <video id="heroVideo" preload="auto" muted playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: 1;">
@@ -124,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                     Durabilidade, força e segurança para quem roda pesado. Atendimento nacional 24h para frotas e autônomos.
                                 </p>
                             
-                            <div class="reveal-up hero-btn-group" style="display: flex; gap: 1.5rem;">
-                                <button class="btn-pill primary" style="padding: 1.5rem 3.5rem;">FAZER ORÇAMENTO (WHATSAPP)</button>
+                            <div class="reveal-up hero-btn-group" style="display: flex; gap: 1.5rem; pointer-events: all; position: relative; z-index: 10;">
+                                <a href="#contato" class="btn-pill primary" style="padding: 1.5rem 3.5rem; text-decoration: none;">FAZER ORÇAMENTO (WHATSAPP)</a>
                             </div>
                         </div>
                     </div>
@@ -385,9 +389,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const dotsArr = document.querySelectorAll('.dot');
     if (carouselArr && dotsArr.length > 0) {
         carouselArr.addEventListener('scroll', () => {
-            const index = Math.round(carouselArr.scrollLeft / carouselArr.offsetWidth);
+            const index = Math.round(carouselArr.scrollLeft / (carouselArr.offsetWidth * 0.85)); // 0.85 matches the card width
             dotsArr.forEach((dot, i) => {
                 dot.classList.toggle('active', i === index);
+            });
+        });
+
+        // Clique nos dots
+        dotsArr.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const cardWidth = carouselArr.querySelector('.flashlight-card').offsetWidth;
+                const gap = 16; // gap: 1rem = 16px
+                carouselArr.scrollTo({
+                    left: i * (cardWidth + gap),
+                    behavior: 'smooth'
+                });
             });
         });
     }
