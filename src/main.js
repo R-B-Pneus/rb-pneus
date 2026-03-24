@@ -167,6 +167,41 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </section>
 
+            <!-- SEÇÃO 2.5: CONHEÇA (CAROUSEL) -->
+            <section id="conheca" style="padding: 120px 0; background: #FFFFFF; color: #000; border-top: 1px solid rgba(0,0,0,0.05);">
+                <div class="container">
+                    <div class="reveal-up" style="margin-bottom: 60px;">
+                        <span class="font-mono" style="color: rgba(0,0,0,0.4); margin-bottom: 2rem; display: block;">R&B_PNEUS // GALERIA</span>
+                        <h2 style="font-size: 4rem; color: #000;">Conheça.</h2>
+                    </div>
+
+                    <div class="carousel-wrapper reveal-up" style="position: relative;">
+                        <div class="carousel-container" id="conheca-carousel">
+                            ${Array.from({ length: 9 }).map((_, i) => `
+                                <div class="carousel-item">
+                                    <img src="/Fotos/Foto (${i + 1}).jpeg" alt="Foto ${i + 1}" class="carousel-img">
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <button class="carousel-nav prev" id="conheca-prev">
+                            <iconify-icon icon="ph:arrow-left-light"></iconify-icon>
+                        </button>
+                        <button class="carousel-nav next" id="conheca-next">
+                            <iconify-icon icon="ph:arrow-right-light"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modal Full Screen -->
+            <div id="image-modal" class="image-modal">
+                <span class="modal-close"><iconify-icon icon="ph:x-light"></iconify-icon></span>
+                <img class="modal-content" id="modal-img">
+            </div>
+
+
+
             <!-- SEÇÃO 3: CATÁLOGO (BLACK THEME) -->
             <section id="catalogo" style="padding: 150px 0; background: #050505;">
                 <div class="container">
@@ -383,6 +418,59 @@ document.addEventListener('DOMContentLoaded', () => {
     initReveals();
     initManualVideoScrub();
     initAccordion();
+
+    // Lógica do Carrossel "Conheça"
+    const initConhecaCarousel = () => {
+        const carousel = document.getElementById('conheca-carousel');
+        const prevBtn = document.getElementById('conheca-prev');
+        const nextBtn = document.getElementById('conheca-next');
+
+        if (carousel && prevBtn && nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 24;
+                carousel.scrollBy({ left: itemWidth, behavior: 'smooth' });
+            });
+
+            prevBtn.addEventListener('click', () => {
+                const itemWidth = carousel.querySelector('.carousel-item').offsetWidth + 24;
+                carousel.scrollBy({ left: -itemWidth, behavior: 'smooth' });
+            });
+        }
+    };
+
+    // Lógica do Modal de Imagem
+    const initImageModal = () => {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('modal-img');
+        const closeBtn = document.querySelector('.modal-close');
+        const images = document.querySelectorAll('.carousel-img');
+
+        images.forEach(img => {
+            img.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = img.src;
+                document.body.style.overflow = 'hidden'; // Previne scroll
+            });
+        });
+
+        const closeModal = () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        };
+
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        
+        // Close on ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    };
+
+    initConhecaCarousel();
+    initImageModal();
 
     // Lógica de Dots do Carrossel Mobile
     const carouselArr = document.querySelector('.mobile-carousel');
